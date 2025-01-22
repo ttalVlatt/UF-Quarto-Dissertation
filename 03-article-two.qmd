@@ -1,10 +1,19 @@
 
-![The World](figures/theworld.png){#fig-world width="5in"}
+This is an example of a plot from chunk output using data from [@beveragedigestUSMarketShare2023].
 
-$$
-y_i = \beta_0 + \beta_1x_i
-$$ {#eq-test}
+```{r}
+#| label: fig-chunk-plot
+#| fig-cap: "Dr Pepper Market Share (as chunk output)"
+#| fig-pos: H
+#| message: false
 
+ggplot(data) +
+  geom_col(aes(x = year, y = perc_market),
+           color = "black", fill = "#890024") +
+  labs(x = "Year", y = "Market Share")
+
+ggsave("figures/market-share.png")
+```
 
 # Literature Review
 

@@ -1,10 +1,25 @@
 
-![The World](figures/theworld.png){#fig-world width="5in"}
+This is an example of a table using data from [@beveragedigestUSMarketShare2023].
 
-$$
-y_i = \beta_0 + \beta_1x_i
-$$ {#eq-test}
+\realSingleSpace
+```{r}
+#| label: tbl-example
+#| tbl-cap: "Dr Pepper Market Share"
+#| tbl-pos: H
+#| message: false
 
+data <- read_csv("data/dr-pepper.csv")
+
+kable(data,
+      col.names = c("Year", "Market Share"),
+      booktab = TRUE,
+      format = "latex",
+      linesep = "",
+      align = "l") |> 
+  #row_spec(0, bold = TRUE) |> # will bold header if uncommented
+  kable_styling(full_width = TRUE) 
+```
+\doublespacing
 
 # Literature Review
 

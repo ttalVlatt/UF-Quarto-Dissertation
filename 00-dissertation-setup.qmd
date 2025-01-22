@@ -1,18 +1,21 @@
 ---
-title: "23 Flavors: The Magical Taste of Dr. Pepper"
+# Edit these
+title: "23 Magical Flavors: The Market Share of Dr. Pepper"
 author: "Charles Alderton"
 degree: "Doctor of Philosophy"
-major: "Food & Beverage Science"
+major: "Food & Resource Economics"
 year: "2025"
 month: "August"
 doc-type: "Dissertation"
-chair: "Wade Morrison"
-co-chair: "Charles T. Pepper"
+chair: "Charles T. Pepper"
+co-chair: "Wade Morrison"
+# Don't edit these (unless desired)
 format: 
   pdf:
     template-partials:
       - latex/doc-class.tex
     output-file: "dissertation"
+    fig-pos: H
 execute:
   echo: false
 bibliography: latex/referenceFile.bib
@@ -26,6 +29,9 @@ keep-tex: false
 
 library(kableExtra)
 library(knitr)
+library(tidyverse)
+
+theme_set(theme_minimal(base_family = "Times"))
 ```
 
 \chapter{INTRODUCTION}

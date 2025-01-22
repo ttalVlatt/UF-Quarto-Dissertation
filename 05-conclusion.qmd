@@ -1,6 +1,10 @@
 
 # Overall Findings
 
+$$
+y_i = \beta_0 + \beta_1x_i
+$$ {#eq-test}
+
 # Implications
 
 # Future Research

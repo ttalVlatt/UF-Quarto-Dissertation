@@ -17,7 +17,8 @@ The process is pretty straight forward
 - Insert figures as chunk output or directly as images
   - Ensure all figure code chunks are appropriately labeled `#| label: fig-<something>` with `#| fig-caption: <a caption>` for a caption and `#| fig-pos: H`  to try and force placement there
   - Ensure all figure images are appropriately labeled by adding `{#fig-<something> fig-caption:"<a caption>" fig-pos:H}` after the image markdown
-- Don't try to add a header to any of the `01-` through `06-` `.qmd` files, it may cause errors, either render these individual documents without a header to see an `html` preview, or, render `00-dissertation-setup.qmd` to produce the full document `dissertation.pdf` 
+- Don't try to add a header to any of the `01-` through `06-` `.qmd` files, it may cause errors, either render these individual documents without a header to see an `html` preview, or, render `00-dissertation-setup.qmd` to produce the full document `dissertation.pdf`
+- If you want to use RStudio's automatic system to add references to your bibliography file, you will need to temporarily add `bibliography: latex/referenceFile.bib` to the header of the file you're working on, but, if it causes errors (usually if it's in more than 2 files) just delete the header when finished to render
 
 ## Limitations
 

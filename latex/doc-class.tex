@@ -90,7 +90,7 @@
 %%% These are REQUIRED sections; easiest to do via these commands.
 
 \setDedicationFile{preface/dedicationFile}%                 Dedication Page
-\setAcknowledgementsFile{preface/acknowledgementsFile}%     Acknowledgements Page
+\setAcknowledgementsFile{preface/acknowledgmentsFile}%     Acknowledgements Page
 \setAbstractFile{preface/abstractFile}%                     Abstract Page (This should only include the abstract itself)
 %\setReferenceFile{referenceFile}{amsplain}%         References. First argument is your bibtex source file
 %                                                       the second argument is your bibtex style file.
@@ -99,7 +99,7 @@
 
 %%% These are NOT required, so only use them if you actually need/have them.
 
-\setAbbreviationsFile{preface/abbreviations}%           Abbreviations Page
+\setAbbreviationsFile{preface/abbreviationsFile}%           Abbreviations Page
 %\setAppendixFile{appendix}%                     Appendix Content; hyperlinking might be weird.
 %\multipleAppendixtrue%                          Uncomment this if you have more than one appendix, 
 %                                                   comment it if you have only one appendix.
@@ -109,6 +109,8 @@
 
 \usepackage{tabu}
 
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
 %%%%%%%                     End of File Assignment
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -3,14 +3,20 @@
 
 \realSingleSpace
 ```{r}
-#| label: tbl-cars2
-#| tbl-cap: Cars Distance
+#| label: tbl-change
+#| tbl-cap: Dr. Pepper Market Share with YoY Change
 #| tbl-pos: H
-#| include: true
+#| message: false
+
+data <- read_csv("data/dr-pepper.csv")
+
+data <- data |>
+  mutate(change = perc_market - lag(perc_market))
 
 # kable(cars[1:30,]) |> kable_styling(position = "left") 
 
-kable(cars[1:30,],
+kable(data,
+      col.names = c("Year", "Market Share", "Change From Previous Year"),
       booktab = TRUE,
       format = "latex",
       linesep = "",
@@ -22,13 +28,14 @@ kable(cars[1:30,],
 \chapter{YOUR SECOND APPENDIX}
 
 ```{r}
-#| label: fig-cars2
-#| fig-cap: Cars Distance Plot
+#| label: fig-change
+#| fig-cap: Dr. Pepper Market Share YoY Change
 #| fig-pos: H
+#| message: false
+#| warning: false
 
-hist(cars$dist[1:30])
+ggplot(data) +
+  geom_col(aes(x = year, y = change),
+           color = "black", fill = "#890024") +
+  labs(x = "Year", y = "YoY Change in Market Share")
 ```
-
-\chapter{YOUR THIRD APPENDIX}
-
-![Cars Distance Plot Again](figures/cars-plot.png){width=300}

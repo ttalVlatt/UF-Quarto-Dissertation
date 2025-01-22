@@ -1,37 +1,4 @@
 
-# Main Issue
+{{< include README.md >}}
 
-# Connection to Other Issues
-
-# Structure of the Study
-
-The balancing wheel [@delaneyStateSpendingHigher2011]
-
-```{=tex}
-\realSingleSpace
-```
-```{r}
-#| label: tbl-cars
-#| tbl-cap: "cars"
-#| tbl-pos: H
-
-kable(cars[1:30,],
-      col.names = c("Speed", "Distance"),
-      booktab = TRUE,
-      format = "latex",
-      linesep = "",
-      align = "l") |> 
-  #row_spec(0, bold = TRUE) |> # will bold header if uncommented
-  kable_styling(full_width = TRUE) 
-```
-```{=tex}
-\doublespacing
-```
-
-
-
-```{r}
-#| label: fig-cars
-#| fig-cap: "cars"
-hist(cars$speed)
-```
+**Replace this with your introduction chaper**

@@ -1,10 +1,7 @@
 
-![The World](figures/theworld.png){#fig-world width="5in"}
+This is an example of a plot from a saved image (plot saved from last example) using data from [@beveragedigestUSMarketShare2023].
 
-$$
-y_i = \beta_0 + \beta_1x_i
-$$ {#eq-test}
-
+![Dr Pepper Market Share (as image)](figures/market-share.png){#fig-image-plot}
 
 # Literature Review
 
