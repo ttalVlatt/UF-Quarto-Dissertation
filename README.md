@@ -12,7 +12,7 @@ The process is pretty straight forward
 ## Tips
 
 - Insert tables as `kable()` using the example code for formatting
-- Ensure all tables are appropriately labeled `#| label: tbl-<something>` with `#| tbl-caption: <a caption>` for a caption and `#| tbl-pos: H`  to try and force placement there
+  - Ensure all tables are appropriately labeled `#| label: tbl-<something>` with `#| tbl-caption: <a caption>` for a caption and `#| tbl-pos: H`  to try and force placement there
 - Insert figures as chunk output or directly as images
-- Ensure all figures are appropriately labeled `#| label: fig-<something>` with `#| fig-caption: <a caption>` for a caption and `#| fig-pos: H`  to try and force placement there
+  - Ensure all figures are appropriately labeled `#| label: fig-<something>` with `#| fig-caption: <a caption>` for a caption and `#| fig-pos: H`  to try and force placement there
 - Don't try to add a header to any of the `01-` through `06-` `.qmd` files, it may cause errors, either render these individual documents without a header to see an `html` preview, or, render `00-dissertation-setup.qmd` to produce the full document `dissertation.pdf` 
