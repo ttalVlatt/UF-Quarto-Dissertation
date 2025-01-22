@@ -1,0 +1,128 @@
+\documentclass[editMode]{latex/ufdissertation}\sloppy
+\usepackage[colorlinks=true]{hyperref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                 User Package and Style File loading.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\usepackage{CustomMacros}%  This is a user macro/style file.
+
+\usepackage{tikz}%       tikz is used by almost everyone, but certainly by me for this.
+\usepackage{pgfplots}%   pgfplots is tikz but better.
+%\usepackage{amsrefs}%   amsrefs contains the .bibtex style content for mathematician papers.
+\usepackage{algpseudocode}
+
+\usepackage{booktabs}
+
+% Define \pandocbounded to handle images
+\providecommand{\pandocbounded}[1]{#1}
+
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+
+\usepackage{scrextend}
+\deffootnote{1.5em}{0em}{\thefootnotemark\quad}
+\usepackage[all]{nowidow} %avoids single lines of text at the top or bottom of page.  If any of your packages cause this package not to work, you will have to manually remove any orphans/widows or add a line penalty
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                     User Configuration commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Uncomment the relevant line below if you have tables or figures.
+\haveTablestrue%        Uncomment this if you have tables in your thesis.
+\haveFigurestrue%       Uncomment this if you have figures in your thesis.
+%\haveObjectstrue%       Uncomment this if you have Objects in your thesis. This is almost certainly not the case however.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Below are the commands to set the degree type, department, graduation time, and chair. 
+%       Most of these are self explanatory. 
+%       Note: The \chair command takes an optional argument for a cochair. 
+%           So if John was your chair and Jacob was a cochair, you would use \chair[Jacob]{John}.
+%           If John was your chair and you had no cochair, you can simply use \chair{John}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{$title$}%  Put your title here.
+
+\degreeType{$degree$}%   Official name of your degree; eg "Doctor of Philosophy".
+\major{$major$}%                    Your official Department
+\author{$author$}%                  Your Name
+\thesisType{$doc-type$}%              Dissertation (PhD) or Thesis (Masters)
+\degreeYear{$year$}%                      Intended graduation year (not the year you submit the thesis)
+\degreeMonth{$month$}%                   Month of graduation should be May, August, or December.
+\chair[$co-chair$]{$chair$}%                   Chair and Cochair (see comment block above).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% For each of the following, type in the name of the file that contains each section. 
+% They are assumed to be tex files, but if they aren't the command takes an optional argument for the extension.
+%So, you could load dedication.tex as your dedication file using \setDedicationFile{dedication}
+% You could load dedication.txt instead with \setDedicationFile[txt]{dedication}.
+
+% NOTE: For some compilers they may or may not add a .tex to the end of the file automatically.
+% If you get a "couldn't find dedication.tex.tex" type error, try the command with an empty optional argument,
+%e.g. \setDedicationFile[]{dedication}
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% These are REQUIRED sections; easiest to do via these commands.
+
+\setDedicationFile{preface/dedicationFile}%                 Dedication Page
+\setAcknowledgementsFile{preface/acknowledgementsFile}%     Acknowledgements Page
+\setAbstractFile{preface/abstractFile}%                     Abstract Page (This should only include the abstract itself)
+%\setReferenceFile{referenceFile}{amsplain}%         References. First argument is your bibtex source file
+%                                                       the second argument is your bibtex style file.
+
+\setBiographicalFile{preface/biographyFile}%                Biography file of the Author (you).
+
+%%% These are NOT required, so only use them if you actually need/have them.
+
+\setAbbreviationsFile{preface/abbreviations}%           Abbreviations Page
+%\setAppendixFile{appendix}%                     Appendix Content; hyperlinking might be weird.
+%\multipleAppendixtrue%                          Uncomment this if you have more than one appendix, 
+%                                                   comment it if you have only one appendix.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\urlstyle{rm}
+
+\usepackage{tabu}
+
+
+%%%%%%%                     End of File Assignment
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%% Here you just need to include/input your actual work. 
+%       The above files (dedication, acknowledgement, titlepage, etc etc) will all be added for you 
+%       using the files you assigned above. 
+%       If you want to input the above files manually you can comment out the \setFILE command above 
+%       and use \input or \include here. Generally you want to use \include to get your pagebreak.
+%       NOTE: If you input manually you will have to do some/all the formatting manually.
+
+$body$
+
+\end{document}
+

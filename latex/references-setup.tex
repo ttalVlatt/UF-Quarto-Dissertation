@@ -1,0 +1,24 @@
+% Reset the chapter command back to normal now that appendix is done.
+\let\chapter\appendixChapter 
+\setcounter{appendixVal}{0} % end the appendix counter to stop putting C next to biographic sketch
+
+
+
+% Reset Heading style to have no APPENDIX or CHAPTER
+\titleformat{\chapter}[hang]%             
+{\uppercase}
+{}
+{0pt}
+{\centering\realSingleSpace}
+[\raggedright\doublespacing]
+
+\makeatletter
+\titlecontents{chapter}[0em]
+    {\addvspace{8pt}}
+    {%
+    \hspace*{-2em}\hyper@linkstart{link}{\Hy@tocdestname}\hspace*{2em}\contentslabel{2em}\hyper@linkend%
+    \ifchapterCapOff\else\color{blue}\uppercase\fi% Decide if we auto capitalize the chapter in TOC or not
+    }
+    {}
+    {\hyper@linkstart{link}{\Hy@tocdestname}\titlerule*[5pt]{.}\thecontentspage\hyper@linkend \\*}
+\makeatother

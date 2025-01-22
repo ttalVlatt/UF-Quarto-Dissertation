@@ -1,0 +1,19 @@
+
+![The World](figures/theworld.png){#fig-world width="5in"}
+
+$$
+y_i = \beta_0 + \beta_1x_i
+$$ {#eq-test}
+
+
+# Literature Review
+
+# Framework
+
+# Methodology
+
+# Results
+
+# Discussion
+
+# Conclusion

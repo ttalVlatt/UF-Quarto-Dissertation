@@ -1,0 +1,62 @@
+---
+title: "23 Flavors: The Magical Taste of Dr. Pepper"
+author: "Charles Alderton"
+degree: "Doctor of Philosophy"
+major: "Food & Beverage Science"
+year: "2025"
+month: "August"
+doc-type: "Dissertation"
+chair: "Wade Morrison"
+co-chair: "Charles T. Pepper"
+format: 
+  pdf:
+    template-partials:
+      - latex/doc-class.tex
+    output-file: "dissertation"
+execute:
+  echo: false
+bibliography: latex/referenceFile.bib
+csl: latex/apa7.csl
+keep-tex: false
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+library(kableExtra)
+library(knitr)
+```
+
+\chapter{INTRODUCTION}
+
+{{< include 01-introduction.qmd >}}
+
+\chapter{ARTICLE ONE}
+
+{{< include 02-article-one.qmd >}}
+
+\chapter{ARTICLE TWO}
+
+{{< include 03-article-two.qmd >}}
+
+\chapter{ARTICLE THREE}
+
+{{< include 04-article-three.qmd >}}
+
+\chapter{CONCLUSION}
+
+{{< include 05-conclusion.qmd >}}
+
+\input{latex/appendix-setup}
+
+{{< include 06-appendix.qmd >}}
+
+\input{latex/references-setup}
+
+\chapter{REFERENCES}
+
+\realSingleSpace
+:::{#refs}
+:::
+\doublespacing

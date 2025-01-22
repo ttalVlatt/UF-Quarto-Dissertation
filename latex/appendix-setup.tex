@@ -1,0 +1,72 @@
+\setcounter{secnumdepth}{4}
+    
+\makeatletter
+\titlecontents{chapter}[0em]
+    {\addvspace{8pt}}
+    {%
+    \hspace*{0em}\hyper@linkstart{link}{\Hy@tocdestname}\hspace*{2em}\contentslabel{2em}\hyper@linkend%
+    \ifchapterCapOff\else\color{blue}\uppercase\fi% Decide if we auto capitalize the chapter in TOC or not
+    }
+    {}
+    {\hyper@linkstart{link}{\Hy@tocdestname}\titlerule*[5pt]{.}\thecontentspage\hyper@linkend \\*}
+\makeatother
+            
+
+\setcounter{secnumdepth}{4}
+            
+%  Use an entirely different counter for Appendices to avoid
+% hyperref misdirections to other already existing chapters.
+\newcounter{appendixVal}
+            
+% Start counter at 0,
+% Since the counter is stepped before the label is made.
+\setcounter{appendixVal}{0} 
+            
+% Save the normal \chapter command so we can temporarily hijack it.
+\let\appendixChapter\chapter 
+            
+% Append a step counter to the 
+%   Appendix counter to the normal chapter command.
+\renewcommand{\chapter}[1]{\stepcounter{appendixVal}\appendixChapter{#1}}
+            
+            
+% Force the ToC to display and link using the new counter.
+% Input the appendix file, since we already checked that it exists.
+\renewcommand{\thechapter}{\Alph{appendixVal}}
+
+
+% \include{appendix}
+
+\makeatletter
+\titlecontents{chapter}[2em]
+    {\addvspace{8pt}}
+    {%
+    \hspace*{0em}\hyper@linkstart{link}{\Hy@tocdestname}\hspace*{2em}\contentslabel{2em}\hyper@linkend%
+    \ifchapterCapOff\else\color{blue}\uppercase\fi% Decide if we auto capitalize the chapter in TOC or not
+    }
+    {}
+    {\hyper@linkstart{link}{\Hy@tocdestname}\titlerule*[5pt]{.}\thecontentspage\hyper@linkend \\*}
+\makeatother
+
+\newpage
+
+\phantomsection
+\addcontentsline{toc}{chapter}{APPENDIX}
+
+\makeatletter
+\titlecontents{chapter}[0em]
+    {\addvspace{8pt}}
+    {%
+    \hspace*{0em}\hyper@linkstart{link}{\Hy@tocdestname}\hspace*{2em}\contentslabel{2em}\hyper@linkend%
+    \ifchapterCapOff\else\color{blue}\uppercase\fi% Decide if we auto capitalize the chapter in TOC or not
+    }
+    {}
+    {\hyper@linkstart{link}{\Hy@tocdestname}\titlerule*[5pt]{.}\thecontentspage\hyper@linkend \\*}
+\makeatother
+
+\titleformat{\chapter}[hang]
+            {\uppercase}
+            {}
+            {0pt}
+            {\centering\realSingleSpace Appendix \thechapter \\[-5pt]}
+            [\raggedright\doublespacing]

@@ -1,0 +1,34 @@
+
+\chapter{YOUR FIRST APPENDIX}
+
+\realSingleSpace
+```{r}
+#| label: tbl-cars2
+#| tbl-cap: Cars Distance
+#| tbl-pos: H
+#| include: true
+
+# kable(cars[1:30,]) |> kable_styling(position = "left") 
+
+kable(cars[1:30,],
+      booktab = TRUE,
+      format = "latex",
+      linesep = "",
+      align = "l") |> 
+  kable_styling(full_width = TRUE) 
+```
+\doublespacing
+
+\chapter{YOUR SECOND APPENDIX}
+
+```{r}
+#| label: fig-cars2
+#| fig-cap: Cars Distance Plot
+#| fig-pos: H
+
+hist(cars$dist[1:30])
+```
+
+\chapter{YOUR THIRD APPENDIX}
+
+![Cars Distance Plot Again](figures/cars-plot.png){width=300}
