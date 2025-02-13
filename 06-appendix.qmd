@@ -39,3 +39,32 @@ ggplot(data) +
            color = "black", fill = "#890024") +
   labs(x = "Year", y = "YoY Change in Market Share")
 ```
+
+\chapter{A MULTIPAGE TABLE}
+
+```{r}
+#| label: tbl-long
+#| tbl-cap: A Really Long Table
+#| tbl-pos: H
+#| message: false
+
+long_data <- tibble(x = c(1:140),
+                    y = c(1001:1140))
+
+long_data |>
+  kable(format = "latex",
+        booktabs = TRUE,
+        linesep = "",
+        align = "l",
+        longtable = TRUE) |>
+  kable_styling(full_width = FALSE,
+                latex_options = c("repeat_header"),
+                ## Manually edit this
+                repeat_header_text = "Table C-1. Continued") |>
+  # Manually adjust the widths of the columns to so output matches single page tables with full_width = TRUE
+  column_spec(1, width = "4in") |>
+  column_spec(2, width = "2.175in")
+  # Add new column_spec(n) for the number of columns you have and adjust widths manually to match other tables
+
+```
+
