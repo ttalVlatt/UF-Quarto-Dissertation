@@ -11,7 +11,8 @@ The process is pretty straight forward
 
 ## Tips
 
-- Insert tables as `kable()` using the example code chunks for formatting
+- Insert tables as either `kable()` for simple tables or use `gtsummary` to create a more complex table and then `as_kable_extra()`
+  - Ensure you add the specific formatting options given in the Appendix example code 
   - Ensure all table code chunks are appropriately labeled `#| label: tbl-<something>` with `#| tbl-caption: <a caption>` for a caption and `#| tbl-pos: H`  to try and force placement there
   - Ensure all table code chunks are preceeded by `\realSingleSpace` and followed by `\doublespacing` as they are in the example files
 - Insert figures as chunk output or directly as images

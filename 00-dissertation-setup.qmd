@@ -30,6 +30,7 @@ keep-tex: false
 library(kableExtra)
 library(knitr)
 library(tidyverse)
+library(gtsummary)
 
 theme_set(theme_minimal(base_family = "Times"))
 ```

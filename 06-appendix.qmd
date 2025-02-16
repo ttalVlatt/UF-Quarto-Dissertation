@@ -68,3 +68,47 @@ long_data |>
 
 ```
 
+\chapter{A MULTIPAGE GTSUMMARY TABLE}
+
+Using gtsummary you can set up a long descriptive table to format correctly
+
+```{r}
+#| label: tbl-gtsummary-multi
+#| tbl-cap: Descriptive Statistics for the mtcars example data grouped by vs variable
+#| tbl-pos: H
+#| message: false
+
+tbl_desc <- tbl_summary(mtcars,  
+                        by = vs,
+                        type = all_continuous() ~ "continuous2",
+                        statistic = c(all_continuous() ~ c("{mean}",
+                                                           "{sd}",
+                                                           "{min}",
+                                                           "{max}"))) |>
+  add_overall() |>
+    modify_header(label ~ "Variable",
+                all_stat_cols() ~ "{level} \n*N = {n}*") |> # Remove bold formatting
+  modify_footnote(c(all_stat_cols()) ~ NA) |>
+  modify_column_indent(columns = "label",
+                       rows = !row_type %in% 'label',
+                       indent = 8)
+
+
+tbl_desc |>
+  as_kable_extra(format = "latex",
+                 booktabs = TRUE,
+                 linesep = "",
+                 align = c("l", "r", "r", "r"),
+                 longtable = TRUE) |>
+  kable_styling(full_width = FALSE,
+                latex_options = c("repeat_header"),
+                                     # Need to manually update this
+                repeat_header_text = "Table D-1. Continued.") |>
+  column_spec(1, width = "2.825in") |>  # Adjust width as needed
+  column_spec(2, width = "1in") |>  # Adjust width as needed
+  column_spec(3, width = "1in") |>  # Adjust width as needed
+  column_spec(4, width = "1in") |>  # Adjust width as needed
+  row_spec(0, align = "l")
+
+```
+
