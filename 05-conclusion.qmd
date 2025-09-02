@@ -1,10 +1,7 @@
+---
+bibliography: latex/referenceFile.bib
+---
 
-# Overall Findings
+fjkdjaklf
 
-$$
-y_i = \beta_0 + \beta_1x_i
-$$ {#eq-test}
-
-# Implications
-
-# Future Research
+@capaldiRouteGraduationExploration2023

@@ -550,9 +550,9 @@
     
 % Sets the file name for the abbreviations file and 
 % saves it in the macro \abbreviationsFile
-\providecommand{\setAbbreviationsFile}[2][tex]{
-    \edef\abbreviationsFile{#2.#1}
-    }
+% \providecommand{\setAbbreviationsFile}[2][tex]{
+%     \edef\abbreviationsFile{#2.#1}
+%     }
     
 
 % Sets the file name for the abstract file and 
@@ -730,16 +730,16 @@
     
     % If we have defined a abbreviations file, import it.
     % Abbreviations come after our lists.
-    \ifExists{abbreviationsFile}
-        { 
-            \chapter{LIST OF ABBREVIATIONS}
-            \label{abbreviations}
-            \input{\abbreviationsFile}
-        }
-        {
-            \@latex@warning{You haven't specified a abbreviations file using the command \setAbbreviationsFile. Hopefully this is intentional!}
-        }
-        
+    % \ifExists{abbreviationsFile}
+    %     { 
+    %         \chapter{LIST OF ABBREVIATIONS}
+    %         \label{abbreviations}
+    %         \input{\abbreviationsFile}
+    %     }
+    %     {
+    %         \@latex@warning{You haven't specified a abbreviations file using the command \setAbbreviationsFile. Hopefully this is intentional!}
+    %     }
+    %     
 % Since the abstract needs to be a phantom chapter, we need to force a newpage.   
 % Abstract page comes next.
 % If we have defined a abstract file, import it.

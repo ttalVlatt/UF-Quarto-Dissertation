@@ -1,14 +1,14 @@
 ---
 # Edit these
-title: "23 Magical Flavors: The Market Share of Dr. Pepper"
-author: "Charles Alderton"
+title: "Scales of Success: A Study into First-Year Student Outcomes in Gator Nation"
+author: "Al E. Gator"
 degree: "Doctor of Philosophy"
-major: "Food & Resource Economics"
+major: "Higher Education Administration"
 year: "2025"
 month: "August"
 doc-type: "Dissertation"
-chair: "Charles T. Pepper"
-co-chair: "Wade Morrison"
+chair: "W. Kent Fuchs"
+co-chair: "Joseph Glover"
 # Don't edit these (unless desired)
 format: 
   pdf:
@@ -16,42 +16,46 @@ format:
       - latex/doc-class.tex
     output-file: "dissertation"
     fig-pos: H
+filters:
+  - latex/plain-code.lua
 execute:
   echo: false
 bibliography: latex/referenceFile.bib
 csl: latex/apa7.csl
-keep-tex: false
+keep-tex: false # You might want to set this to true to troubleshoot formatting
 ---
 
 ```{r}
 #| label: setup
 #| include: false
 
-library(kableExtra)
-library(knitr)
-library(tidyverse)
-library(gtsummary)
+if(!require(pacman)) {install.packages("pacman"); library(pacman)}
+
+p_load(tidyverse, knitr, kableExtra, gtsummary)
 
 theme_set(theme_minimal(base_family = "Times"))
+
+source("table-functions.R")
+
 ```
 
-\chapter{INTRODUCTION}
+\chapter{HEADINGS (INTRODUCTION)}
 
 {{< include 01-introduction.qmd >}}
 
-\chapter{ARTICLE ONE}
+\chapter{FIGURES (LITERATURE REVIEW)}
 
-{{< include 02-article-one.qmd >}}
+{{< include 02-literature.qmd >}}
 
-\chapter{ARTICLE TWO}
+\chapter{TABLES (METHODOLOGY)}
 
-{{< include 03-article-two.qmd >}}
+{{< include 03-methods.qmd >}}
 
-\chapter{ARTICLE THREE}
+\chapter{RESULTS}
 
-{{< include 04-article-three.qmd >}}
+{{< include 04-results.qmd >}}
 
-\chapter{CONCLUSION}
+\chapter{DISCUSSION AND CONCLUSION}
 
 {{< include 05-conclusion.qmd >}}
 
@@ -65,5 +69,6 @@ theme_set(theme_minimal(base_family = "Times"))
 
 \realSingleSpace
 :::{#refs}
+\setlength{\itemsep}{1em}
 :::
 \doublespacing

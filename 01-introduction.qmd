@@ -1,4 +1,40 @@
+---
+bibliography: latex/referenceFile.bib
+---
 
-{{< include README.md >}}
+# Set Up & Running
 
-**Replace this with your introduction chaper**
+In order to render the pdf of your dissertation/thesis, you want to hit render on `00-dissertation-setup.qmd`.
+This will first pull all the content from the chapter .qmds into one file and the covert that into a LaTeX .pdf, slotting in the UF LaTeX template around it.
+The rest of this section will cover the main areas to edit.
+
+## Main Chapters
+
+The main content of your dissertation will be written in the .qmd files `01-introduction.qmd` through `05-conclusion.qmd`.
+If you're writing a staple/article style dissertation, you can swap the literature, methods, and results files to individual articles and updates the `\chapter{TITLE}` accordingly. 
+If you have more than 3 articles, just add another .qmd file, and update `00-dissertation-setup.qmd` so the new file is included in the same way as others.
+
+You do not want to edit the YAML headers in these chapters, the `bibliography: latex/referenceFile.bib` is there to enabke [Quarto's citation/Zotero integration]() but is not used for actual rendering.
+Everything you want to affect the output documen should be set in the `00-dissertation-setup.qmd` file, as discussed next.
+
+## YAML Header
+
+# Using Headings
+
+You can use level one and two headings to structure your chapter, these will automatically create the table of contents with links as appropriate
+
+## A Sub-Heading
+
+Note, you are not allowed single sub-sections, you need at least two per level & section if you use them 
+
+## Another Sub-Heading
+
+Don't use level 3 or higher headings, as those aren't part of the UF template
+
+## Paragraph Headings
+
+If you need additional levels of sub-headings, use bold text as the first sentence of the paragraph (including a period).
+
+**A Paragraph Header.** 
+Don't leave a blank line between the paragraph header and the text, it should be part of the paragraph.
+These will not show up in the table of contents.

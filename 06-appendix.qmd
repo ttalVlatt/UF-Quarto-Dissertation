@@ -1,114 +1,174 @@
 
-\chapter{YOUR FIRST APPENDIX}
+
+\chapter{DESCRIPTIVE STATISTICS TABLES}
 
 \realSingleSpace
 ```{r}
-#| label: tbl-change
-#| tbl-cap: Dr. Pepper Market Share with YoY Change
-#| tbl-pos: H
-#| message: false
 
-data <- read_csv("data/dr-pepper.csv")
 
-data <- data |>
-  mutate(change = perc_market - lag(perc_market))
-
-# kable(cars[1:30,]) |> kable_styling(position = "left") 
-
-kable(data,
-      col.names = c("Year", "Market Share", "Change From Previous Year"),
-      booktab = TRUE,
-      format = "latex",
-      linesep = "",
-      align = "l") |> 
-  kable_styling(full_width = TRUE) 
 ```
 \doublespacing
 
-\chapter{YOUR SECOND APPENDIX}
+{{< pagebreak >}}
 
+\realSingleSpace
 ```{r}
-#| label: fig-change
-#| fig-cap: Dr. Pepper Market Share YoY Change
-#| fig-pos: H
-#| message: false
-#| warning: false
 
-ggplot(data) +
-  geom_col(aes(x = year, y = change),
-           color = "black", fill = "#890024") +
-  labs(x = "Year", y = "YoY Change in Market Share")
+
 ```
+\doublespacing
 
-\chapter{A MULTIPAGE TABLE}
+{{< pagebreak >}}
 
+\realSingleSpace
 ```{r}
-#| label: tbl-long
-#| tbl-cap: A Really Long Table
+#| label: tbl-vars
+#| tbl-cap: All Variables and Their Sources
 #| tbl-pos: H
 #| message: false
 
-long_data <- tibble(x = c(1:140),
-                    y = c(1001:1140))
-
-long_data |>
-  kable(format = "latex",
-        booktabs = TRUE,
-        linesep = "",
-        align = "l",
-        longtable = TRUE) |>
-  kable_styling(full_width = FALSE,
-                latex_options = c("repeat_header"),
-                ## Manually edit this
-                repeat_header_text = "Table C-1. Continued.") |>
-  # Manually adjust the widths of the columns to so output matches single page tables with full_width = TRUE
-  column_spec(1, width = "4in") |>
-  column_spec(2, width = "2.175in")
-  # Add new column_spec(n) for the number of columns you have and adjust widths manually to match other tables
-
+# tbl_vars <- tribble(
+#   ~var, ~source, ~time_measured,
+#   "Transit Stop Within 0.5 Miles", "SHS Transit Map XL", "Spring 2021",
+#   "Retention Rate", "IPEDS", "Fall 2021 - Fall 2022",
+#   "Locale", "IPEDS", "Fall 2021",
+#   "Public or Private", "IPEDS", "Fall 2021",
+#   "Region", "IPEDS", "Fall 2021",
+#   "2-Year or 4-Year", "IPEDS", "Fall 2021",
+#   "Open Access or Not", "IPEDS", "Fall 2021",
+#   "Cohort % Women", "IPEDS", "Fall 2021",
+#   "Cohort % White", "IPEDS", "Fall 2021",
+#   "Undergraduate % Pell Grant", "IPEDS", "Fall 2021",
+#   "Undegraduate % On-Campus", "IPEDS", "Fall 2021",
+#   "Student to Faculty Ratio", "IPEDS", "Fall 2021",
+#   "Spending on Instruction", "IPEDS", "Fall 2021",
+#   "Spending on Student Services", "IPEDS", "Fall 2021",
+#   "Average Net Price", "IPEDS", "Fall 2021",
+#   "County % Bachelors", "ACS", "Jan 2017 - Dec 2021",
+#   "County % Poverty", "ACS", "Jan 2017 - Dec 2021",
+#   "County % No Automobile", "ACS", "Jan 2017 - Dec 2021",
+#   "County Pop. Sq Mile", "ACS", "Jan 2017 - Dec 2021",
+#   "County % Commute Using Transit", "ACS", "Jan 2017 - Dec 2021"
+# )
+# 
+# kable(tbl_vars,
+#       col.names = c("Variable", "Source", "Time Measured"),
+#       format = "latex",
+#       booktabs = TRUE,
+#       digits = 2,
+#       escape = TRUE,
+#       linesep = "",
+#       align = c("l", "l", "l")) |>
+#   kable_styling(full_width = TRUE) |>
+#   column_spec(1, width = "3in") |>  # Adjust width as needed
+#   row_spec(0, align = "l")
 ```
+\doublespacing
 
-\chapter{A MULTIPAGE GTSUMMARY TABLE}
 
-Using gtsummary you can set up a long descriptive table to format correctly
+\chapter{DIAGNOSTIC DETAILS}
 
+
+\realSingleSpace
 ```{r}
-#| label: tbl-gtsummary-multi
-#| tbl-cap: Descriptive Statistics for the mtcars example data grouped by vs variable
+#| label: tbl-ps-bal-full
+#| tbl-cap: Propensity Score Balance Table (Full)
 #| tbl-pos: H
 #| message: false
 
-tbl_desc <- tbl_summary(mtcars,  
-                        by = vs,
-                        type = all_continuous() ~ "continuous2",
-                        statistic = c(all_continuous() ~ c("{mean}",
-                                                           "{sd}",
-                                                           "{min}",
-                                                           "{max}"))) |>
-  add_overall() |>
-    modify_header(label ~ "Variable",
-                all_stat_cols() ~ "{level} \n*N = {n}*") |> # Remove bold formatting
-  modify_footnote(c(all_stat_cols()) ~ NA) |>
-  modify_column_indent(columns = "label",
-                       rows = !row_type %in% 'label',
-                       indent = 8)
-
-
-tbl_desc |>
-  as_kable_extra(format = "latex",
-                 booktabs = TRUE,
-                 linesep = "",
-                 align = c("l", "r", "r", "r"),
-                 longtable = TRUE) |>
-  kable_styling(full_width = FALSE,
-                latex_options = c("repeat_header"),
-                                     # Need to manually update this
-                repeat_header_text = "Table D-1. Continued.") |>
-  column_spec(1, width = "2.825in") |>  # Adjust width as needed
-  column_spec(2, width = "1in") |>  # Adjust width as needed
-  column_spec(3, width = "1in") |>  # Adjust width as needed
-  column_spec(4, width = "1in") |>  # Adjust width as needed
-  row_spec(0, align = "l")
+# kable(tbl_ps_bal_full,
+#       col.names = c("Variable", "Std. Mean Diff.", "Balanced at <0.05"),
+#       format = "latex",
+#       booktabs = TRUE,
+#       digits = 2,
+#       escape = TRUE,
+#       linesep = "",
+#       align = c("l", "r", "r", "r")) |>
+#   kable_styling(full_width = TRUE) |>
+#   column_spec(1, width = "3in") |>  # Adjust width as needed
+#   row_spec(0, align = "l")
 
 ```
+\doublespacing
 
+<!--
+
+\chapter{R CODE}
+
+\realSingleSpace
+\small
+
+# R Session Info
+
+```{r}
+#load("analysis/session-info.Rdata")
+
+#print(r_ver)
+#print(pack_ver)
+```
+
+{{< pagebreak >}}
+
+# Download IPEDS Data
+
+```{r}
+#| echo: true
+#| eval: false
+# #| file: analysis/00-IPEDtaS.R
+```
+
+{{< pagebreak >}}
+
+# Data Cleaning & Preparation
+
+```{r}
+#| echo: true
+#| eval: false
+# #| file: analysis/01-rtr-data.R
+```
+
+{{< pagebreak >}}
+
+# Descriptive Data Visualizations
+
+```{r}
+#| echo: true
+#| eval: false
+# #| file: analysis/02-rtr-descriptives.R
+```
+
+{{< pagebreak >}}
+
+# Regression Replication Analysis
+
+```{r}
+#| echo: true
+#| eval: false
+# #| file: analysis/03-rtr-regression.R
+```
+
+{{< pagebreak >}}
+
+# Quasi-Experimental Analysis
+
+```{r}
+#| echo: true
+#| eval: false
+# #| file: analysis/04-rtr-quasi.R
+```
+\normalsize
+\doublespacing
+
+{{< pagebreak >}}
+
+```{=latex}
+%% h/t https://tex.stackexchange.com/questions/440046/title-of-subsection-on-included-multi-page-pdf
+
+%\includepdf[width=\paperwidth,pages={1},trim={0in 0.5in 0in 2.5in},clip,
+%pagecommand={\chapter{IRB EXEMPT DETERMINATION}},offset={0mm 0in}]{analysis/figures/irb-exempt.pdf}
+
+%\includepdf[width=\paperwidth,pages={2-3},trim={0in 0in 0in 0.25in},clip,
+%pagecommand={},offset={0mm 0in}]{analysis/figures/irb-exempt.pdf}
+```
+
+-->

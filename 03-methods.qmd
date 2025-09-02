@@ -1,0 +1,187 @@
+---
+bibliography: latex/referenceFile.bib
+---
+
+Tables are both the most involved and most beneficial part of using this template.
+Tables are added to the directly from R output.
+This means that if you add a new variable to your model, if you re-run the code to make the table, your results will update automatically, no more hand copying etc.!
+However, you will need to a little bit of tweaking to get your tables exactly as needed.
+Depending on how much you need to customize a table, you might need to work out a little bit of LaTeX, but ChatGPT etc. are extremely helpful here.
+I have included examples of all the ways I created tables in my dissertation, but, this may not cover everything you need, but they should be a good starting point.
+
+# Simple Tables Added Hand
+
+The first way you can add a table is simply creating it in a code chunk, turning it into a `kable()`, and doing some simple reformatting.
+This is super-flexible, and you could pretty much create any table you need this way (if you know enough LaTeX).
+That said, there are more efficient ways for common tables using the `gtsummary` package below.
+
+You will see all chunks that create tables are preceeded by `\realSingleSpace` and proceeded by `\doublespacing`.
+This ensures the text in the table is single spaced, as required for UF formatting.
+
+For example, let's create a summary table the Gators data from earlier and include it as a simple `kable()` with a little extra formatting
+
+\realSingleSpace
+```{r}
+#| label: tbl-gators-kable
+#| tbl-cap: Summary of Mascot Times
+#| tbl-pos: H
+#| message: false
+#| echo: TRUE
+
+
+data |>
+  group_by(mascot) |>
+  summarize(mean = mean(time), sd = sd(time), min = min(time), max = max(time)) |>
+  kable(col.names = c("Mascot", "Mean", "SD", "Min", "Max"),
+      format = "latex",
+      booktabs = TRUE,
+      digits = 2,
+      escape = TRUE,
+      linesep = "",
+      align = c("l", "r", "r", "r", "r")) |>
+  kable_styling(full_width = TRUE) |>
+  column_spec(1, width = "3in") |>  # Adjust width as needed
+  row_spec(0, align = "l")
+  
+
+```
+\doublespacing
+
+That formatting code will be a good starting point for any `kable()`s.
+If you 
+
+## Multi-page Kables
+
+If you need a table that goes over a single page, it's a little trickier, as we can't use `kable_styling(full_width = TRUE)` (as we need to use `longtable = TRUE` and they aren't compatible for some reason).
+So, instead you need to manually set all the column widths so the table is turns out the width of a page.
+This is done with `column_spec(1, width = "3in")` lines in the below code.
+When I needed to do this, I started with values that total 6 inches and tweaked it from there until it looked good.
+If you want to check it's correct, the edges should line up with a single page table that used `kable_styling(full_width = TRUE)`, so you could always add a dummy one of those above/below to check against.
+
+\realSingleSpace
+```{r}
+#| label: tbl-gators-long
+#| tbl-cap: Summary of Mascot Times
+#| tbl-pos: H
+#| message: false
+#| echo: TRUE
+
+long_gator_table <- bind_rows(data, data, data, data)
+
+long_gator_table |>
+  kable(col.names = c("Date", "Mascot", "Time"),
+      format = "latex",
+                   booktabs = TRUE,
+                   linesep = "",
+                   align = c("l", "r", "r", "r"),
+                   longtable = TRUE) |>
+    kable_styling(full_width = FALSE,
+                  latex_options = c("repeat_header"),
+                  repeat_header_text = "Table A-1. Continued. (UPDATE THIS)") |>
+  column_spec(1, width = "3in") |>  # Adjust width as needed
+  column_spec(2, width = "1.5in") |>  # Adjust width as needed
+  column_spec(3, width = "1.5in") |>  # Adjust width as needed
+  row_spec(0, align = "l")
+
+
+```
+\doublespacing
+
+# `gtsummary` Tables
+
+The kable option is flexible, but, one of the great advantages of including code from R is all the table generation packages that create nicely formatted tables for common situations.
+There are countless table packages in R, and I'm sure most could be adapted to this template, but my personal favorite is `gtsummary`, so that is what I have written some helper functions for.
+These functions are included in the `table-functions.R` script.
+
+Specifically, there are pre-written functions to create descriptive statistics tables and regression (both lm and glm) results tables.
+
+## Variable Labels
+
+The first step of creating gtsummary tables is setting your variable labels.
+This should be a named list like below and will be used to replace variable names in the formatted tables.
+This is pretty intuitive, the only trick is for regression tables, you need labels modified terms to match their R regression output, such as `log(time)` in the example below
+
+
+```{r}
+label_list <- list(date = "Date of Race",
+                  mascot = "Mascot Name",
+                  time = "Time to Finish",
+                  `log(time)` = "Time to Finish (logged)")
+```
+
+
+## Descriptive Statitistics
+
+If you look in the inside `table-functions.R` you will see two functions.
+`create_desc_table()` takes a full dataset and creates a gtsummary descriptive statistics table as I have them in my dissertation.
+If you want to change the type of summary statistics in the table, you will want to edit this and then edit the formatting function to match.
+`format_desc_table()` takes a gtsummary table, and spits out a LaTeX table that formats correctly in the template.
+
+The way it is currently set up requires you add a `treatment =` to get descriptives for each group and overall.
+
+The decision as to what gtsummary considers continuous is usually pretty good.
+However, I have seen with small datasets, double columns can be treated as categorical.
+
+\realSingleSpace
+```{r}
+#| label: tbl-gators-desc
+#| tbl-cap: Summary of Mascot Times
+#| tbl-pos: H
+#| message: false
+#| echo: TRUE
+
+gtsummary_table <- create_desc_table(data, treatment = "mascot", labels = label_list)
+
+format_desc_table(gtsummary_table)
+```
+\doublespacing
+
+
+By default, this will use all variables in your data, but you can specify `variables = c()` to make a smaller table.
+
+## Regression Tables
+
+There are functions set up to format both lm and glm models which work with a variety of regression packages that are supported by gtsummary, you can see the list [here]().
+
+Using the functions is very similar to the descriptive statistics tables, just using a regression result object instead of a data frame.
+First, use `create_lm_table()` for linear models or `create_glm_table()` to create a gtsummary table structured as the below example.
+Optionally, `variables = c()` can be used to limit the table to certain varibles.
+For glm tables, you can also use `exp = FALSE` to return raw coefficients, by default, it will return a table with exponentiated coefficients. 
+
+```{r}
+an_lm <-
+  
+lm_table <- create_lm_table(an_lm)  
+  
+format_reg_table(lm_table)
+
+```
+
+
+```{r}
+a_glm <-
+
+glm_table <- create_glm_table(a_glm)
+  
+format_reg_table(glm)
+```
+
+
+## Working with Other Table Packages
+
+If you have another favorite table package (or other types of gtsummary tables), the code in `table-functions.R` should be a good starting point.
+The main requirement is that it has an option to export to raw LaTeX code.
+At the bare minimum, if it has that option, you can always manually edit it like lines 174-176 of `table-functions.R`.
+
+
+# Location of Tables
+
+One thing to note is where you are placing tables.
+I woukd advise not worrying about this until you have a solid draft of your content.
+If placed in the middle of the chapter, you cannot have any blank lines before of after the table.
+I would only advise placing smaller/reduced tables in the text body.
+Ussually want to identify the first paragraph on a page, and place the table code (with `#| tbl-pos: H` as in the example) right after that paragraph.
+LaTeX will sometimes be stubborn about table placement, but if you follow the above advice, it should work for smaller tables
+Otherwise, you can place any tables at the end of each chapter.
+All numbering and cross references will work no matter which option you choose.
+

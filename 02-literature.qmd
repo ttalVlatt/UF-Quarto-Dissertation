@@ -1,0 +1,68 @@
+---
+bibliography: latex/referenceFile.bib
+---
+
+Figures can be included one of two ways.
+
+# As Quarto Output
+
+For simpler plots where the default output and scaling works, you can include them from an R (or Python etc.) code block 
+
+```{r}
+#| label: fig-gators
+#| fig-cap: Albert and Alberta's Times
+#| fig-pos: H
+#| echo: fenced
+
+data <- tribble(~date, ~mascot, ~time,
+                2020, "Albert", 300,
+                2020, "Alberta", 290,
+                2021, "Albert", 280,
+                2021, "Alberta", 285,
+                2022, "Albert", 278,
+                2022, "Alberta", 275,
+                2023, "Albert", 285,
+                2023, "Alberta", 275,
+                2024, "Albert", 270,
+                2024, "Alberta", 265,
+                2025, "Albert", 265,
+                2025, "Alberta", 260)
+
+ggplot(data) +
+  geom_line(aes(x = date, y = time, color = mascot)) +
+  scale_color_manual(values = c("#FA4616", "#0021A5"))
+
+
+```
+
+```{r}
+ggsave("figures/gator-plot.png")
+```
+
+
+For these you need to use [Quarto's figure cross referencing](https://quarto.org/docs/authoring/figures.html#cross-references).
+This means labeling the chunk starting with fig `#| label: fig-gators` and adding a caption `#| fig-cap: Albert and Alberta's Times`.
+
+You can then refer to this plot with `@fig-gators` in your markdown text and it will create in text figure numbers correctly based on chapter and order and hyperlink directly to the figure.
+
+# As an Image
+
+Sometimes you might have figures created elsewhere, or, want to have more control over the scaling/shape of the plot than you get with Quarto by default.
+In this case, you want to save the figures as an image (e.g., my-plot.png) and the add and cross reference it using inline markdown like `![Albert and Alberta's Times](figures/gator-plot.png){#fig-gators}`.
+This was how I handled most of my plots.
+
+![Albert and Alberta's Times](figures/gator-plot.png){#fig-gators-inline}
+
+# Mix n' Match
+
+Finally, you can mix and match these methods and all the figure numbering keeps up to date, no extra steps needed!
+
+# Location of Figures
+
+One thing to note is where you are placing figures.
+I woukd advise not worrying about this until you have a solid draft of your content.
+If placed in the middle of the chapter, you cannot have any blank lines before of after the plot.
+So, you ussually want to identify the first paragraph on a page, and place the plot code (with `#| fig-pos: H` as in the example) right after that paragraph.
+LaTeX will sometimes be stubborn about figure placement, but if you follow the above advice, it should work for smaller figures.
+Otherwise, you can place any figures at the end of each chapter.
+All numbering and cross references will work no matter which option you choose.
